@@ -28,7 +28,7 @@ services:
       REDIS_URL: redis://redis:6379
       KNEX_MIGRATION_DIR: /spoke/build/server/migrations/
     ports:
-      - 3000:3000
+      - "3000:8090"
     volumes:
       - ./.env:/Spoke/.env
 volumes:
