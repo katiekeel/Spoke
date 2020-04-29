@@ -12,10 +12,10 @@ ENV NODE_ENV=production \
 
 COPY . /spoke
 WORKDIR /spoke
-RUN yarn install --ignore-scripts --non-interactive --frozen-lockfile && \
+RUN yarn install --ignore-scripts --non-interactive --frozen-lockfile --network-timeout 100000 && \
     yarn run prod-build && \
     rm -rf node_modules && \
-    yarn install --production --ignore-scripts
+    yarn install --production --ignore-scripts --network-timeout 100000
 
 # Spoke Runtime
 FROM ${RUNTIME_IMAGE}
@@ -23,6 +23,7 @@ WORKDIR /spoke
 COPY --from=builder /spoke/build build
 COPY --from=builder /spoke/node_modules node_modules
 COPY --from=builder /spoke/package.json /spoke/yarn.lock ./
+RUN mv /spoke/build/client/assets/bundle* /spoke/build/client/assets/bundle.js
 ENV NODE_ENV=production \
     PORT=3000 \
     ASSETS_DIR=./build/client/assets \
