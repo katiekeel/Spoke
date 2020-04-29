@@ -1,0 +1,7 @@
+apiVersion: v1
+appVersion: 5.3
+name: spoke
+description: The Helm chart for the Spoke app, published by MoveOn
+version: 0.0.1
+maintainers:
+  - name: katiekeel
